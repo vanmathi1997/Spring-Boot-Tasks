@@ -4,11 +4,37 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+<<<<<<< HEAD
+=======
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+>>>>>>> e04ff1b0a46d04050545834b7da9da98584e722c
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+<<<<<<< HEAD
 mvnw
 mvnw.cmd
 muzixapp.iml
+=======
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+>>>>>>> e04ff1b0a46d04050545834b7da9da98584e722c
