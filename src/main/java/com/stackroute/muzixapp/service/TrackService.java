@@ -5,10 +5,15 @@ import com.stackroute.muzixapp.domain.Track;
 import java.util.List;
 
 public interface TrackService {
-    Track saveTrack(Track track);
-    List<Track> getAllTracks();
-     void deleteTrackById(int id);
-    void deleteAllTrack();
-    boolean updateById(int id,Track track);
-    List<Track> trackByName(String trackName);
+    public Track saveTrack(Track track);
+
+    public List<Track> getAllTracks();
+
+    public Track getTrackById(int id);
+
+    public Track deleteTrackById(int id);
+
+    public List<Track> deleteAllTracks();
+
+    public Track updateById(int id, Track track);
 }

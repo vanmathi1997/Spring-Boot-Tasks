@@ -10,15 +10,17 @@ import java.util.Optional;
 
 @Service
 public class TrackServiceImpl implements TrackService {
-    TrackRepository trackRepository;
+    private TrackRepository trackRepository;
+    TrackService trackService = null;
+
     @Autowired
-    public TrackServiceImpl(TrackRepository trackRepository)
-    {
-        this.trackRepository=trackRepository;
+    private TrackServiceImpl(TrackRepository trackRepository) {
+        this.trackRepository = trackRepository;
     }
+
     @Override
     public Track saveTrack(Track track) {
-        return  trackRepository.save(track);
+        return trackRepository.save(track);
     }
 
     @Override
@@ -27,31 +29,35 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public void deleteTrackById(int id) {
+    public Track getTrackById(int id) {
+        Optional<Track> track_id = trackRepository.findById(id);
+        return track_id.get();
+    }
+
+    @Override
+    public Track deleteTrackById(int id) {
+
         trackRepository.deleteById(id);
+        return trackService.getTrackById(id);
 
     }
 
     @Override
-    public void deleteAllTrack() {
+    public List<Track> deleteAllTracks() {
         trackRepository.deleteAll();
+        return trackService.getAllTracks();
     }
 
     @Override
-    public boolean updateById(int id,Track track) {
-        Optional<Track> optionalTrack=trackRepository.findById(id);
-        if(!optionalTrack.isPresent())
-            return false;
+    public Track updateById(int id, Track track) {
+        Optional<Track> optionalTrack = trackRepository.findById(id);
+        if (!optionalTrack.isPresent())
+            return track;
 
-            track.setId(id);
-            trackRepository.save(track);
-            return true;
-    }
+        track.setId(id);
+        trackRepository.save(track);
+        return track;
 
-    @Override
-    public List<Track> trackByName(String trackName) {
-        List<Track> track_id=trackRepository.findTitleByName(trackName);
-        return track_id;
+
     }
 }
-
