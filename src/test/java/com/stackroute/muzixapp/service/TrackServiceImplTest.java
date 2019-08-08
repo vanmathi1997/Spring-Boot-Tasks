@@ -60,12 +60,11 @@ public class TrackServiceImplTest {
     public void saveTrackTestFailure() throws TrackAlreadyExistsException {
         when(trackRepository.save((Track) any())).thenReturn(null);
         Track savedTrack = trackService.saveTrack(track);
-        System.out.println("savedTrack" + savedTrack);
 
     }
 
     @Test
-    public void testGetAllTrack() {
+    public void testGetAllTrack() throws TrackNotFoundException {
 
         trackRepository.save(track);
         //stubbing the mock to return specific data
@@ -83,7 +82,7 @@ public class TrackServiceImplTest {
     }
 
     @Test
-    public void updateTrackTest() throws TrackNotFoundException {
+    public void updateTrackTest() throws TrackNotFoundException, TrackAlreadyExistsException {
         when(trackRepository.save((Track) any())).thenReturn(track);
         Track updateTrack = null;
         updateTrack = trackService.saveTrack(track);

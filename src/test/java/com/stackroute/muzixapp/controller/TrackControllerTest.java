@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class TrackControllerTest {
     @InjectMocks
     private TrackController trackController;
     private List<Track> list=null;
+
     @Before
     public void setUp(){
     MockitoAnnotations.initMocks(this);
@@ -75,22 +77,22 @@ public class TrackControllerTest {
     @Test
     public void teshGetAllTracks() throws Exception {
         when(trackService.getAllTracks()).thenReturn(list);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tracks")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
 
     }
-    //Test for DeleteAllTracks
-  @Test
-    public void testDeleteAllTracks() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/tracks/delete"))
-                .andExpect(status().isOk())
+    //Test for DeleteTrackById
+    @Test
+    public void testDeleteMusic() throws Exception {
+        when(trackService.deleteById(1)).thenReturn(list);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/muzix/1")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
-
-
-
     }
+
     //Test for UpdateById
     @Test
     public void testUpdateById() throws Exception {
