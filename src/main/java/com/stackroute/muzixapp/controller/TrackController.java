@@ -1,7 +1,7 @@
 package com.stackroute.muzixapp.controller;
 import com.stackroute.muzixapp.domain.Track;
-import com.stackroute.muzixapp.repository.TrackRepository;
 import com.stackroute.muzixapp.service.TrackService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping(value = "api/v1")
 public class TrackController {
     private TrackService trackService;
+    @Autowired
     public TrackController(TrackService trackService)
     {
         this.trackService=trackService;
@@ -21,13 +22,13 @@ public class TrackController {
     {
         ResponseEntity responseEntity;
 
-            try {
-                trackService.saveTrack(track);
-                responseEntity = new ResponseEntity<String>("success", HttpStatus.CREATED);
-            }catch (Exception e)
-            {
-                return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
-            }
+        try {
+            trackService.saveTrack(track);
+            responseEntity = new ResponseEntity<String>("success", HttpStatus.CREATED);
+        }catch (Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
         return responseEntity;
     }
     @GetMapping("track/{id}")
@@ -57,21 +58,9 @@ public class TrackController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Track>(track,HttpStatus.OK);
-    }
-    @DeleteMapping("tracks/delete")
-    public ResponseEntity<?> deleteAllTracks()
-    {
-        ResponseEntity responseEntity;
-        try {
-            trackService.deleteAllTracks();
-            responseEntity= new ResponseEntity<>("Deleted",HttpStatus.OK);
-        }catch (Exception e)
-        {
-            responseEntity= new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-           return responseEntity;
 
-        }
+
+    }
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateById(@PathVariable("id") int id,@RequestBody Track track)
     {
@@ -84,3 +73,4 @@ public class TrackController {
         return new ResponseEntity<String>("updated", HttpStatus.CREATED);
     }
 }
+
